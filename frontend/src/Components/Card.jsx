@@ -4,7 +4,7 @@ import { io } from "socket.io-client"
 import { useNavigate } from "react-router-dom"
 //
 const Card = () => {
-  const socket=io("http://localhost:9000")
+  const socket=io("https://kanban-4nwf.onrender.com/")
   const commentRef=useRef(null)
   const handleSubmit=(e)=>{
     e.preventDefault()
