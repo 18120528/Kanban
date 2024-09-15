@@ -11,7 +11,7 @@ useEffect(()=>{//useEffect only return func, not Promise=> async inside useEffec
   const fetchCards=async ()=>
     {
       try {
-        const response=await fetch("http://localhost:9000/api")//object
+        const response=await fetch("https://kanban-4nwf.onrender.com/api")//object
         const data=await response.json()
         setLists(data)
       } catch (error) {
