@@ -4,7 +4,7 @@ import {io} from "socket.io-client"
 import AddList from "./AddList"
 //
 const Board = () => {
-    const socket=io("http://localhost:9000/")
+    const socket=io("https://kanban-4nwf.onrender.com/")
     return (
       <>
         <NavBar/>
