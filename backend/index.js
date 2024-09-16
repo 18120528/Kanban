@@ -83,6 +83,9 @@ io.on("connection",(socket)=>{
     })
     //
     socket.on("deleteList",(data)=>{
+      if(tasks[data]){
+        delete tasks[data]
+      }
       console.log(data)
     })
     //

@@ -3,8 +3,10 @@ import { useParams } from "react-router-dom"
 import { io } from "socket.io-client"
 import { useNavigate } from "react-router-dom"
 //
+const url=import.meta.env.VITE_SERVER_API_URL
+
 const Card = () => {
-  const socket=io("https://kanban-4nwf.onrender.com/")
+  const socket=io(`${url}`)
   const commentRef=useRef(null)
   const handleSubmit=(e)=>{
     e.preventDefault()

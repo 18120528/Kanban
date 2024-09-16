@@ -3,8 +3,10 @@ import CardsContainer from "./CardsContainer"
 import {io} from "socket.io-client"
 import AddList from "./AddList"
 //
+const url=import.meta.env.VITE_SERVER_API_URL
+
 const Board = () => {
-    const socket=io("https://kanban-4nwf.onrender.com/")
+    const socket=io(`${url}`)
     return (
       <>
         <NavBar/>
