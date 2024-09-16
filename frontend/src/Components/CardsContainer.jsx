@@ -4,6 +4,8 @@ import {Link} from "react-router-dom"
 import { useEffect,useState } from "react"
 import {DragDropContext,Droppable,Draggable} from "react-beautiful-dnd"
 //
+const url=import.meta.env.VITE_SERVER_API_URL
+
 const CardsContainer = ({socket}) => {
   const [lists,setLists]=useState({})
 
@@ -11,7 +13,7 @@ useEffect(()=>{//useEffect only return func, not Promise=> async inside useEffec
   const fetchCards=async ()=>
     {
       try {
-        const response=await fetch("https://kanban-4nwf.onrender.com/api")//object
+        const response=await fetch(`${url}/api`)//object
         const data=await response.json()
         setLists(data)
       } catch (error) {
