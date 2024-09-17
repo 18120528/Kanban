@@ -17,51 +17,15 @@ app.use(cors())
 // Dummy data
 let tasks = {
     [uuidv4()]: {
-      title: "pending",
+      title: "Mock list",
       cards: [
         {
           id: uuidv4(),
-          title: "Send the Figma file to Dima",
-          comments: [],
-        },
-        {
-          id: uuidv4(),
-          title: "Delete the Figma file from Dima",
-          comments: [],
-        }
-      ],
-    },
-    [uuidv4()]: {
-      title: "ongoing",
-      cards: [
-        {
-          id: uuidv4(),
-          title: "Review GitHub issues",
+          title: "Mock title",
           comments: [
             {
-              name: "David",
-              text: "Ensure you review before merging",
-              id: uuidv4(),
-            },
-            {
-              name: "David",
-              text: "Ensure you review before merging",
-              id: uuidv4(),
-            }
-          ],
-        },
-      ],
-    },
-    [uuidv4()]: {
-      title: "completed",
-      cards: [
-        {
-          id: uuidv4(),
-          title: "Create technical contents",
-          comments: [
-            {
-              name: "Dima",
-              text: "Make sure you check the requirements",
+              name: "John",
+              text: "This is a mock comment",
               id: uuidv4(),
             },
           ],
@@ -73,9 +37,9 @@ let tasks = {
 io.on("connection",(socket)=>{
     console.log(`${socket.id} User Connected!`)
     //
-    socket.on("addList",()=>{
+    socket.on("addList",(data)=>{
       const newList={
-        title:`Unnamed List`,
+        title:`${data}`,
         cards: []
       }
       tasks={...tasks, [uuidv4()]:newList}
@@ -85,8 +49,8 @@ io.on("connection",(socket)=>{
     socket.on("deleteList",(data)=>{
       if(tasks[data]){
         delete tasks[data]
+        io.sockets.emit("change",tasks)
       }
-      console.log(data)
     })
     //
     socket.on("taskDragged",(data)=>{

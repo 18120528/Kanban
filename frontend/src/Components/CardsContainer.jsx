@@ -61,11 +61,11 @@ const handleDelCard=(listId,cardId)=>{
                       ref={provided.innerRef}
                       style={{background: snapshot.isDraggingOver && 'lightblue'}}
                     >
-                      <div className="list" style={{backgroundColor:"lightseagreen",border: "2px solid white",position: "relative"}}>
+                      <div className="list" style={{backgroundColor:"lightseagreen",border: "2px solid white",position: "relative", width: "272px"}}>
                         <div className="listmenu">
                           <ListMenu socket={socket} listId={key}/>
                         </div>
-                        <h2>{value.title}</h2>
+                        <h2 style={{width: "208px", wordWrap: "break-word"}}>{value.title}</h2>
                         {value.cards.map((card, index)=>{
                           return(
                             <Draggable key={card.id} draggableId={card.id} index={index}>
@@ -77,8 +77,8 @@ const handleDelCard=(listId,cardId)=>{
                                     ref={provided.innerRef}
                                     style={{
                                       userSelect:"none",
-                                      padding:16,
-                                      margin: '0 0 8px 0',   
+                                      padding:8,
+                                      margin: '0 0 8px 0',  
                                       backgroundColor: snapshot.isDragging ? "#263B4A" : "#9ce4e6",
                                       ...provided.draggableProps.style                                 
                                     }}
