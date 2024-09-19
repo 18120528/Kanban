@@ -1,0 +1,63 @@
+.addList{
+    margin: 10px;
+    width: 272px;
+    height: 16px;
+}
+.addList label{
+    color: white;
+    display: flex;
+    background-color: #ffffff3d;
+    border-radius: 10px;
+    padding: 12px;
+    width: 272px;
+    height: 16px;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.addList form{
+    background-color: #101204;
+    border-radius: 10px;
+    padding: 8px;
+}
+.addList input{
+    margin: 8px;
+    padding: 8px 0;
+    resize: none;
+    background-color: #22272b;
+    color: #b6c2cf;
+    border-radius: 5px;
+    border: none;
+    width: 95%;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.addList input::placeholder{
+    color: hsl(211, 21%, 66%);
+}
+.addList label:hover{
+    background-color: hsla(0, 0%, 75%, 0.239);
+}
+.button_container{
+    display: flex;
+    padding: 0px 7px;
+}
+.add_list_button{
+    border-radius: 5px;
+    background-color: #579dff;
+    color: #1d2125;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 6px 12px;
+    margin: 2px;
+}
+.close_button{
+    color: #dee4ea;
+    background-color: #101204;
+    border: none;
+    font-size: 17px;
+    margin: 3px;
+}

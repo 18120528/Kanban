@@ -8,7 +8,7 @@ const LoginForm = () => {
         e.preventDefault()
         localStorage.setItem("username",usernameRef.current.value)
         usernameRef.current.value=""
-        navigate("/tasks")
+        navigate("/board")
     }
   return (
     <div>

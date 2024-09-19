@@ -1,11 +1,11 @@
-import AddCard from "./AddCard"
-import ListMenu from "./ListMenu"
+import AddCard from "../AddCard/AddCard"
+import ListMenu from "../ListMenu"
 import {Link} from "react-router-dom"
 import { useEffect,useState } from "react"
 import {DragDropContext,Droppable,Draggable} from "react-beautiful-dnd"
+import styles from "./CardsContainer.module.css"
 //
 const url=import.meta.env.VITE_SERVER_API_URL
-
 const CardsContainer = ({socket}) => {
   const [lists,setLists]=useState({})
 
@@ -36,7 +36,6 @@ const handleDragEnd=(result)=>{
   const {source,destination}=result
   
   if(!destination) return
-
   if(source.droppableId===destination.droppableId &&
       source.index===destination.index
   ) return
@@ -49,7 +48,7 @@ const handleDelCard=(listId,cardId)=>{
 }
 
   return (
-    <div className="list_container" style={{display:"flex"}}>
+    <div className={styles.list_container}>
       <DragDropContext onDragEnd={handleDragEnd}>
           {Object.entries(lists).map(([key, value])=>{
             return(
@@ -59,43 +58,36 @@ const handleDelCard=(listId,cardId)=>{
                     <div 
                       {...provided.droppableProps}
                       ref={provided.innerRef}
-                      style={{background: snapshot.isDraggingOver && 'lightblue'}}
                     >
-                      <div className="list" style={{backgroundColor:"lightseagreen",border: "2px solid white",position: "relative", width: "272px"}}>
-                        <div className="listmenu">
-                          <ListMenu socket={socket} listId={key}/>
-                        </div>
-                        <h2 style={{width: "208px", wordWrap: "break-word"}}>{value.title}</h2>
+                      <div className={styles.list}  style={{border: snapshot.isDraggingOver &&  '2px solid lightblue', borderRadius:'10px'}}>
+                        <ListMenu socket={socket} listId={key}/>
+                        <h2>{value.title}</h2>
                         {value.cards.map((card, index)=>{
                           return(
                             <Draggable key={card.id} draggableId={card.id} index={index}>
                               {(provided,snapshot)=>{
                                 return(
                                   <div
+                                    className={styles.card}
                                     {...provided.draggableProps}
                                     {...provided.dragHandleProps}
                                     ref={provided.innerRef}
                                     style={{
-                                      userSelect:"none",
-                                      padding:8,
-                                      margin: '0 0 8px 0',  
-                                      backgroundColor: snapshot.isDragging ? "#263B4A" : "#9ce4e6",
+                                      userSelect:"none", 
+                                      backgroundColor: snapshot.isDragging ? "#263B4A" : "#22272b",
                                       ...provided.draggableProps.style                                 
                                     }}
                                   >
-                                    <div className="card">
-                                      <Link to={`/card/${key}/${card.id}`}>
-                                        <p>{card.title}</p>
-                                        <p>💬 {card.comments.length}</p>
-                                      </Link>
-                                      <button onClick={()=>handleDelCard(key, card.id)} style={{backgroundColor: "tomato"}}>Xóa</button>
-                                    </div>
+                                    <Link to={`/card/${key}/${card.id}`}>
+                                      <p>{card.title}</p>
+                                      <p>💬 {card.comments.length}</p>
+                                    </Link>
+                                    <button onClick={()=>handleDelCard(key, card.id)}>&#128465;</button>
                                   </div>
                                 )
                               }}
                             </Draggable>
-                          )
-                          }
+                          )}
                         )}
                         {provided.placeholder}
                         <AddCard listId={key} socket={socket}/>

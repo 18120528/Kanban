@@ -1,4 +1,5 @@
 import { useRef,useState } from "react"
+import styles from "./AddList.module.css"
 //
 const AddList = ({socket}) => {
   const [showForm,setShowForm]=useState(false)
@@ -10,18 +11,20 @@ const AddList = ({socket}) => {
     setShowForm(false)
   }
   return (
-    <div>
+    <div className={styles.addList} >
       {showForm ? (
       <form action="" onSubmit={handleAddList}>
         <input type="text" required
           name="listName" id="listName" 
           ref={addedListRef}
           placeholder="Enter list name..."/><br/>
-        <button type="submit">Add list</button>
-        <button onClick={()=>setShowForm(false)}>Close</button>
+        <div className={styles.button_container}>
+          <button className={styles.add_list_button} type="submit">Add list</button>
+          <button className={styles.close_button} onClick={()=>setShowForm(false)}>X</button>
+        </div>
       </form>
       ) : (
-        <label htmlFor="listName" onClick={()=>setShowForm(true)}>+ Add another list</label>
+        <label htmlFor="listName" onClick={()=>setShowForm(true)}>&#10010; Add another list</label>
       )}
     </div>
   )

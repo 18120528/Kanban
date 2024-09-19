@@ -1,7 +1,7 @@
-import NavBar from "./NavBar"
-import CardsContainer from "./CardsContainer"
+import NavBar from "./NavBar/NavBar"
+import CardsContainer from "./CardsContainer/CardsContainer"
 import {io} from "socket.io-client"
-import AddList from "./AddList"
+import AddList from "./AddList/AddList"
 //
 const url=import.meta.env.VITE_SERVER_API_URL
 
