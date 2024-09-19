@@ -16,7 +16,7 @@ const router=createBrowserRouter([
     element: <LoginForm/>
   },
   {
-    path: "/tasks",
+    path: "/board",
     element: <Board/>
   },
   {
