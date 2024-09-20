@@ -24,22 +24,20 @@ const Card = () => {
   const [commentList,setCommentList]=useState([])
   const {listId,cardId}=useParams()
   const [listCard,setListCard]=useState({})
-  useEffect(()=>{
-    const fetchCards=async ()=>
-      {
-        try {
-          const response=await fetch(`${url}/api/${listId}/${cardId}`)//object
-          const data=await response.json()
-          setListCard(data)
-        } catch (error) {
-          console.log(error)
-        }
-      }
-    fetchCards()
-  },[])
+
   const navigate=useNavigate()
   useEffect(()=>{
-    socket.emit("loadComments",{listId,cardId})
+    const fetchInfo=async ()=>
+    {
+      try {
+        const response=await fetch(`${url}/api/${listId}/${cardId}`)//object
+        const data=await response.json()
+        setListCard(data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchInfo()
   },[])
 
   useEffect(()=>{
@@ -51,7 +49,7 @@ const Card = () => {
         navigate("/404")
       }
     })
-
+    socket.emit("loadComments",{listId,cardId})
     return ()=>{
       socket.off("comments")
     }
@@ -74,7 +72,7 @@ const Card = () => {
             </div>
             {commentList.map(comment=>{
               return(
-                <div>
+                <div key={comment.id}>
                   <strong>{comment.name}:</strong>
                   <div className={styles.chat_container} key={comment.id}>
                     <p> {comment.text}</p>
