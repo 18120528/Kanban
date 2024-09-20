@@ -1,5 +1,5 @@
 import AddCard from "../AddCard/AddCard"
-import ListMenu from "../ListMenu"
+import ListMenu from "../ListMenu/ListMenu"
 import {Link} from "react-router-dom"
 import { useEffect,useState } from "react"
 import {DragDropContext,Droppable,Draggable} from "react-beautiful-dnd"
@@ -59,7 +59,7 @@ const handleDelCard=(listId,cardId)=>{
                       {...provided.droppableProps}
                       ref={provided.innerRef}
                     >
-                      <div className={styles.list}  style={{border: snapshot.isDraggingOver &&  '2px solid lightblue', borderRadius:'10px'}}>
+                      <div className={styles.list} style={{border: snapshot.isDraggingOver &&  '2px solid lightblue', borderRadius:'10px'}}>
                         <ListMenu socket={socket} listId={key}/>
                         <h2>{value.title}</h2>
                         {value.cards.map((card, index)=>{
@@ -80,7 +80,7 @@ const handleDelCard=(listId,cardId)=>{
                                   >
                                     <Link to={`/card/${key}/${card.id}`}>
                                       <p>{card.title}</p>
-                                      <p>💬 {card.comments.length}</p>
+                                      <p>💬 {card.comments && card.comments.length}</p>
                                     </Link>
                                     <button onClick={()=>handleDelCard(key, card.id)}>&#128465;</button>
                                   </div>

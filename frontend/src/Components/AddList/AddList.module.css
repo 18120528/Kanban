@@ -23,7 +23,7 @@
 }
 .addList input{
     margin: 8px;
-    padding: 8px 0;
+    padding: 8px 1px;
     resize: none;
     background-color: #22272b;
     color: #b6c2cf;

@@ -6,11 +6,11 @@
 }
 .menu{
     position: absolute;
-    top: 50%;
+    top: 40px;
     left: 85%;
     z-index: 1000;
     background-color: #282e33;
-    width: 304px;
+    width: 307px;
     border-radius: 8px;
     padding: 8px;
 }
@@ -31,6 +31,7 @@
     background-color: hsl(0, 0%, 20%);
 }
 .menu h2{
+    width: 290px!important;
     text-align: center!important;
     background-color: #282e33!important;
     padding: 4px!important;

@@ -1,4 +1,4 @@
-import styles from "./ListMenu/ListMenu.module.css"
+import styles from "./ListMenu.module.css"
 import { useState } from "react"
 //
 const ListMenu = ({socket,listId}) => {

@@ -8,7 +8,7 @@
     font-size: 14px;
     font-weight: 600;
     border-radius: 10px;
-    position: relative; /* for list menu on top  right */
+    position:relative; /* for list menu on top  right */
     width: 272px;
     margin: 10px 5px;
 }
@@ -18,7 +18,6 @@
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
     font-size: 14px;
     font-weight: 600;
-    width: 272px;
     text-align: left;
     padding: 8px;
     padding-top: 12px;
@@ -36,6 +35,7 @@
 }
 .card p{
     word-wrap: break-word;
+    white-space: pre-wrap;
 }
 .card button{
     background-color: #22272b;
