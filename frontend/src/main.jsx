@@ -6,14 +6,14 @@ import {
   Route} from 'react-router-dom'
 import App from './App.jsx'
 import './index.css'
-import LoginForm from './Components/LoginForm'
+import WelcomeForm from './Components/WelcomeForm/WelcomeForm.jsx'
 import Board from './Components/Board.jsx'
-import Card from './Components/Card.jsx' 
+import Card from './Components/Card/Card.jsx' 
 //
 const router=createBrowserRouter([
   {
     path: "/",
-    element: <LoginForm/>
+    element: <WelcomeForm/>
   },
   {
     path: "/board",

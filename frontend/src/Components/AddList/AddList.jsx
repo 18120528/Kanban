@@ -10,11 +10,12 @@ const AddList = ({socket}) => {
     addedListRef.current.value=""
     setShowForm(false)
   }
+  
   return (
     <div className={styles.addList} >
       {showForm ? (
       <form action="" onSubmit={handleAddList}>
-        <input type="text" required
+        <input type="text" required autoFocus
           name="listName" id="listName" 
           ref={addedListRef}
           placeholder="Enter list name..."/><br/>

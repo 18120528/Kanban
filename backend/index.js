@@ -111,7 +111,7 @@ io.on("connection",(socket)=>{
     //
     socket.on("addComment",(data)=>{
       const {comment, listId, cardId}=data
-      comment.id=uuidv4()
+      comment['id']=uuidv4()
 
       if(tasks[listId]){
         const card=tasks[listId].cards.filter(card=>card.id===cardId)
@@ -138,6 +138,14 @@ io.on("connection",(socket)=>{
 //
 app.get("/api",(req,res)=>{
     res.json(tasks)
+})
+app.get(`/api/:listId/:cardId`,(req,res)=>{
+  const listID=req.params.listId
+  const cardId=req.params.cardId
+  const response={}
+  response['listName']=tasks[listID].title
+  response['cardName']=tasks[listID].cards.filter(card=>card.id===cardId)[0].title
+  res.json(response)
 })
 //
 server.listen(process.env.PORT||PORT,()=>{
