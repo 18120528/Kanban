@@ -2,6 +2,7 @@ import { useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import styles from "./WelcomeForm.module.css"
 //
+const url=import.meta.env.VITE_REACT_URL
 const LoginForm = () => {
     const usernameRef=useRef(null)
     const navigate=useNavigate()
@@ -13,7 +14,7 @@ const LoginForm = () => {
     }
   return (
     <div className={styles.form_container}>
-      <img src="/src/assets/kanban.png" width="256px" height="256px" alt="Logo"/>
+      <img src={`${url}/src/assets/kanban.png`} width="256px" height="256px" alt="Logo"/>
       <form action="" className="" onSubmit={handleSubmit}>
         <label htmlFor="username">Nhập tên của bạn</label><br />
         <input type="text" required 
