@@ -35,7 +35,7 @@ const AddCard = ({listId, socket}) => {
         name="taskContent" id="taskContent"
         placeholder="Enter a name for this card..."
         ref={inputRef}/><br/>
-        <button className={styles.add_button} type="submit">Add Card</button>
+        <button className={styles.add_button} type="submit">Add card</button>
         <button className={styles.close_button} onClick={()=>setShowForm(false)}>X</button>
       </form>
       ) : (

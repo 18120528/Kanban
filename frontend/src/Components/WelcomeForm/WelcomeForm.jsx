@@ -21,7 +21,7 @@ const LoginForm = () => {
         name="username" id="username" 
         placeholder="Enter Your Username" ref={usernameRef}/>
         <button type="submit">Xác nhận</button>
-        <h1>Ứng dụng quản lý đơn giản theo phương pháp Kanban</h1>
+        <h1>Ứng dụng lập danh sách đơn giản theo phương pháp Kanban</h1>
         <h3>Cần 1-2 phút để kết nối đến server sau khi nhập tên, vui lòng đợi 🙏</h3>
       </form>
     </div>

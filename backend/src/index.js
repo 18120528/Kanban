@@ -2,6 +2,8 @@ const express=require("express")
 const {Server}=require("socket.io")
 const http=require("http")
 const cors=require("cors")
+require("dotenv").config()
+const mongoose=require("mongoose")
 const { v4: uuidv4 } = require("uuid")
 //set up
 const app=express()
@@ -12,9 +14,19 @@ const io=new Server(server,{
         origin: ["http://localhost:5173","https://q284kanban.netlify.app"]
     }
 })
+const connectMongoDB=async ()=>{
+  try {
+    await mongoose.connect(process.env.MONGO_URI)
+    console.log("Connect to MongoDB successful!")
+  } catch (error) {
+    console.log("Connect to MongoDB failed!")
+  }
+}
+connectMongoDB()
 //middlewares
 app.use(cors())
 // Dummy data
+
 let tasks = {
     [uuidv4()]: {
       title: "Mock list",
