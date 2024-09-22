@@ -30,21 +30,21 @@ useEffect(()=>{
   return ()=>{
     socket.off("change")
   }
-},[socket])
+},[])
 
 const handleDragEnd=(result)=>{
-  const {source,destination}=result
+  const {source,destination,draggableId}=result
   
   if(!destination) return
   if(source.droppableId===destination.droppableId &&
       source.index===destination.index
   ) return
 
-  socket.emit("taskDragged",{source,destination})
+  socket.emit("cardDragged",{source,destination,draggableId})
 }
 
-const handleDelCard=(listId,cardId)=>{
-  socket.emit("deleteCard",{listId,cardId})
+const handleDelCard=(cardId)=>{
+  socket.emit("deleteCard",cardId)
 }
 
   return (
@@ -64,7 +64,7 @@ const handleDelCard=(listId,cardId)=>{
                         <h2>{value.title}</h2>
                         {value.cards.map((card, index)=>{
                           return(
-                            <Draggable key={card.id} draggableId={card.id} index={index}>
+                            <Draggable key={card._id} draggableId={card._id} index={index}>
                               {(provided,snapshot)=>{
                                 return(
                                   <div
@@ -78,11 +78,11 @@ const handleDelCard=(listId,cardId)=>{
                                       ...provided.draggableProps.style                                 
                                     }}
                                   >
-                                    <Link to={`/card/${key}/${card.id}`}>
+                                    <Link to={`/card/${key}/${card._id}`}>
                                       <p>{card.title}</p>
                                       <p>💬 {card.comments && card.comments.length}</p>
                                     </Link>
-                                    <button onClick={()=>handleDelCard(key, card.id)}>&#128465;</button>
+                                    <button onClick={()=>handleDelCard(card._id)}>&#128465;</button>
                                   </div>
                                 )
                               }}
