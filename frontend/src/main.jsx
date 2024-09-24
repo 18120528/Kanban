@@ -2,7 +2,8 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { 
   createBrowserRouter,
-  RouterProvider} from 'react-router-dom'
+  RouterProvider } 
+  from 'react-router-dom'
 import './index.css'
 import WelcomeForm from './Components/WelcomeForm/WelcomeForm.jsx'
 import Board from './Components/Board.jsx'
