@@ -1,0 +1,7 @@
+body{
+    background: linear-gradient(to bottom right, hsl(283, 37%, 40%), hsl(318, 29%, 40%));
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0;
+    text-align: center;
+}
