@@ -6,6 +6,7 @@ const ListMenu = ({socket,listId}) => {
   const menuRef=useRef(null)
   const handleDelList=()=>{
     socket.emit("deleteList",listId)
+    setShowMenu(false)
   }
   const handleClickOutside=(e)=>{
     if(!menuRef.current) return

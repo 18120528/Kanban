@@ -2,9 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { 
   createBrowserRouter,
-  RouterProvider,
-  Route} from 'react-router-dom'
-import App from './App.jsx'
+  RouterProvider} from 'react-router-dom'
 import './index.css'
 import WelcomeForm from './Components/WelcomeForm/WelcomeForm.jsx'
 import Board from './Components/Board.jsx'
@@ -27,8 +25,6 @@ const router=createBrowserRouter([
 //
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router}>
-      <App />
-    </RouterProvider>
+    <RouterProvider router={router} />
   </StrictMode>,
 )
