@@ -24,6 +24,7 @@ useEffect(()=>{//useEffect only return func, not Promise=> async inside useEffec
 },[])
 
 useEffect(()=>{
+  document.title="Board | Kanban"
   socket.on("change", (data)=>{
     setLists(data)
   })
