@@ -1,6 +1,7 @@
 import { useRef,useEffect,useState } from "react"
 import { useParams } from "react-router-dom"
 import { io } from "socket.io-client"
+import { useNavigate } from "react-router-dom"
 import styles from "./Card.module.css"
 import NavBar  from "../NavBar/NavBar"
 //
@@ -11,6 +12,7 @@ const Card = () => {
   const [commentList,setCommentList]=useState([])
   const {listId,cardId}=useParams()
   const [listCard,setListCard]=useState({})
+  const navigate = useNavigate();
 
   useEffect(()=>{
     const fetchInfo=async ()=>
@@ -21,10 +23,17 @@ const Card = () => {
         setListCard(data)
       } catch (error) {
         console.log(error)
+        navigate('/')
       }
     }
     fetchInfo()
   },[])
+
+  useEffect(() => {
+    if(listCard.cardTitle){
+      document.title = listCard.cardTitle[0]
+    }
+  }, [listCard]);
 
   const socket=useRef(null)
   useEffect(()=>{
@@ -47,7 +56,6 @@ const Card = () => {
     }
     commentRef.current.value=""
     socket.current.emit("addComment",{comment, cardId})
-    commentRef.current.value=""
   }
   //
   return (

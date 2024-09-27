@@ -4,6 +4,7 @@ import styles from "./WelcomeForm.module.css"
 import logoUrl from "/src/assets/kanban.png"
 //
 const LoginForm = () => {
+    document.title="Kanban"
     const usernameRef=useRef(null)
     const navigate=useNavigate()
     const handleSubmit=(e)=>{
