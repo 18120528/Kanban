@@ -11,7 +11,7 @@ const socketHandler=(io,newBoardId)=>{
       io.sockets.emit("change",boardContent)
     })
     socket.on("deleteList",async (data)=>{
-      await boardHandler.deleteList(data)
+      await boardHandler.deleteList(data, newBoardId)
       const boardContent=await boardHandler.populateBoard(newBoardId)
       io.sockets.emit("change",boardContent)
     })
@@ -28,7 +28,8 @@ const socketHandler=(io,newBoardId)=>{
       io.sockets.emit("change",boardContent)
     })
     socket.on("deleteCard",async (data)=>{
-      await boardHandler.deleteCard(data)
+      const {cardId, listId}=data
+      await boardHandler.deleteCard(cardId, listId)
       const boardContent=await boardHandler.populateBoard(newBoardId)
       socket.emit("change",boardContent)
     })
