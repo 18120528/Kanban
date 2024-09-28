@@ -85,7 +85,7 @@ const getListAndCardTitle=async (listID, cardID)=>{
         console.log(error)
     }
 }
-const deleteList=async (listID)=>{
+const deleteList=async (listID, boardID)=>{
     try {
         const list=await List.findById(listID)
         if(list){
@@ -93,18 +93,26 @@ const deleteList=async (listID)=>{
                 await deleteCard(cardID);
             }
             await List.deleteOne({_id: listID})
+            await Board.findByIdAndUpdate(
+                boardID,
+                { $pull: { lists: listID } }
+            );
         }
     } catch (error) {
         console.log(error)
     }
 }
-const deleteCard=async (cardID)=>{
+const deleteCard=async (cardID, listID)=>{
     try {
         const card=await Card.findById(cardID)
         if(card){
             await Comment.deleteMany({_id: {$in: card.comments}})
             await Card.deleteOne({_id: cardID})
-        }        
+            await List.findByIdAndUpdate(
+                listID,
+                { $pull: { cards: cardID } }
+            ); 
+        }       
     } catch (error) {
         console.log(error)
     }

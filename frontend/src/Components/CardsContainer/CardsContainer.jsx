@@ -44,8 +44,8 @@ const handleDragEnd=(result)=>{
   socket.emit("cardDragged",{source,destination,draggableId})
 }
 
-const handleDelCard=(cardId)=>{
-  socket.emit("deleteCard",cardId)
+const handleDelCard=(cardId, listId)=>{
+  socket.emit("deleteCard",{cardId, listId})
 }
 
   return (
@@ -83,7 +83,7 @@ const handleDelCard=(cardId)=>{
                                       <p>{card.title}</p>
                                       <p>💬 {card.comments && card.comments.length}</p>
                                     </Link>
-                                    <button onClick={()=>handleDelCard(card._id)}>&#128465;</button>
+                                    <button onClick={()=>handleDelCard(card._id, key)}>&#128465;</button>
                                   </div>
                                 )
                               }}
