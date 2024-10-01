@@ -17,13 +17,13 @@ const LoginForm = () => {
     <div className={styles.form_container}>
       <img src={logoUrl} width="256px" height="256px" alt="Logo"/>
       <form action="" className="" onSubmit={handleSubmit}>
-        <label htmlFor="username">Nhập tên của bạn</label><br />
+        <label htmlFor="username">Enter your name</label><br />
         <input type="text" required 
         name="username" id="username" 
         placeholder="Enter Your Username" ref={usernameRef}/>
-        <button type="submit">Xác nhận</button>
-        <h1>Ứng dụng lập danh sách đơn giản theo phương pháp Kanban</h1>
-        <h3>Vì là server free tier nên bạn đừng thao tác kéo thả quá nhanh 🙏</h3>
+        <button type="submit">Submit</button>
+        <h1>Simple kanban-style, list-making application</h1>
+        <h3>Since it's a free tier server, please avoid dragging and dropping rapidly</h3>
       </form>
     </div>
   )
