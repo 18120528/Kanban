@@ -1,5 +1,5 @@
 .form_container{
-    background: linear-gradient(to bottom right, hsl(283, 37%, 30%), hsl(318, 29%, 30%));
+    background: linear-gradient(to bottom right, hsl(283, 55%, 30%), hsl(318, 29%, 40%));
     height: 100vh;
     color: #96a8bb;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -28,7 +28,7 @@
     background-color: #579dff;
     color: #1d2125;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     padding: 6px 12px;
     margin: 0;
     border: none;

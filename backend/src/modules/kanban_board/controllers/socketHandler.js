@@ -31,7 +31,7 @@ const socketHandler=(io,newBoardId)=>{
       const {cardId, listId}=data
       await boardHandler.deleteCard(cardId, listId)
       const boardContent=await boardHandler.populateBoard(newBoardId)
-      socket.emit("change",boardContent)
+      io.sockets.emit("change",boardContent)
     })
     socket.on("loadComments",async (data)=>{
       const comments=await boardHandler.getComments(data)
