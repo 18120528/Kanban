@@ -2,7 +2,7 @@ import styles from "./ListMenu.module.css"
 import { useState, useRef,useEffect } from "react"
 //
 const ListMenu = ({socket,listId}) => {
-  const [showMenu,setShowMenu]=useState(false)
+  const [isShowMenu,setShowMenu]=useState(false)
   const menuRef=useRef(null)
   const handleDelList=()=>{
     socket.emit("deleteList",listId)
@@ -25,9 +25,9 @@ const ListMenu = ({socket,listId}) => {
   return (
     <div>
       <div className={styles.list_menu}>
-        <button onClick={()=>setShowMenu(!showMenu)}>...</button><br/>
+        <button onClick={()=>setShowMenu(!isShowMenu)}>...</button><br/>
       </div>
-      {showMenu && (
+      {isShowMenu && (
       <div className={styles.menu} ref={menuRef}>
         <h2>List actions</h2>
         <button onClick={handleDelList}>Delete</button>

@@ -2,6 +2,8 @@ import { useRef,useEffect,useState } from "react"
 import { useParams } from "react-router-dom"
 import { io } from "socket.io-client"
 import { useNavigate } from "react-router-dom"
+import { useSelector, useDispatch } from "react-redux"
+import * as actions from '../../store/boadSlice'
 import styles from "./Card.module.css"
 import NavBar  from "../NavBar/NavBar"
 //
@@ -9,44 +11,48 @@ const url=import.meta.env.VITE_SERVER_API_URL
 
 const Card = () => {
   //
-  const [commentList,setCommentList]=useState([])
-  const {listId,cardId}=useParams()
-  const [listCard,setListCard]=useState({})
   const navigate = useNavigate();
-
-  useEffect(()=>{
-    const fetchInfo=async ()=>
-    {
-      try {
-        const response=await fetch(`${url}/api/${listId}/${cardId}`)//object
-        const data=await response.json()
-        setListCard(data)
-      } catch (error) {
-        console.log(error)
-        navigate('/')
+  const {listID,cardID}=useParams()
+  const dispatch=useDispatch()
+  const board=useSelector(state => state.board)
+  const card = board[listID]?.cards.find(card => card._id === cardID)
+  //
+  const fetchCardData=async ()=>
+  {
+    try {
+      const response=await fetch(`${url}/api`)
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.statusText}`);
       }
+      const data=await response.json()
+      dispatch(actions.fetchBoard(data))
+    } catch (error) {
+      console.log(error)
     }
-    fetchInfo()
+  }
+  useEffect(()=>{
+    if(Object.keys(board).length===0){//fetch if absent
+      fetchCardData()
+    }
   },[])
-
+  
   useEffect(() => {
-    if(listCard.cardTitle){
-      document.title = listCard.cardTitle[0]
+    if(card){
+      document.title = card.title
     }
-  }, [listCard]);
-
+    else if (Object.keys(board).length > 0) {
+      navigate("/");
+    }
+  }, [board]);
+  
   const socket=useRef(null)
   useEffect(()=>{
     socket.current=io(`${url}`)
-    socket.current.on("comments",(data)=>{
-      setCommentList(data)
-    })
-    socket.current.emit("loadComments",cardId)
     return ()=>{
-      socket.current.off("comments")
       socket.current.disconnect();
     }
-  },[])
+  },[]) 
+  
   const commentRef=useRef(null)
   const handleSubmit=(e)=>{
     e.preventDefault()
@@ -55,16 +61,23 @@ const Card = () => {
       text: commentRef.current.value
     }
     commentRef.current.value=""
-    socket.current.emit("addComment",{comment, cardId})
+    dispatch(actions.addComment({
+      listID,
+      cardID,
+      comment
+    }))
+    socket.current.emit("addComment",{comment, cardID})
+    fetchCardData()
   }
-  //
+  
   return (
+    !card ? <NavBar/> :
     <>
       <NavBar/>
       <div className={styles.card_container}>
         <div className={styles.card}>
-          <h2>{listCard.cardTitle}</h2>
-          <p>in list <u>{listCard.listTitle}</u></p>
+          <h2>{card.title}</h2>
+          <p>in list <u>{board[listID].title}</u></p>
           <form action="" onSubmit={handleSubmit}>
             <label htmlFor="comment"></label>
             <textarea name="comment" id="comment"
@@ -73,7 +86,7 @@ const Card = () => {
             <div className={styles.button_container}>
               <button type="submit">Save</button>
             </div>
-            {commentList.map(comment=>{
+            {card.comments.map(comment=>{
               return(
                 <div key={comment._id}>
                   <strong>{comment.name}:</strong>

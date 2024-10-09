@@ -8,10 +8,10 @@ const url=import.meta.env.VITE_SERVER_API_URL
 
 const Board = () => {
   const socket=useRef(null)
-  const [socketState, setSocketState]=useState(false)
+  const [isConnected, setConnected]=useState(false)
   useEffect(()=>{
     socket.current=io(`${url}`)
-    setSocketState(true)
+    setConnected(true)
     return ()=>{
       socket.current.disconnect()
     }
@@ -22,7 +22,7 @@ const Board = () => {
       <NavBar/>
       <div className="board">
         <div className="board_content" style={{display: "flex"}}>
-          {socketState && (
+          {isConnected && (//prevent child component use undefined socket
             <>
               <CardsContainer socket={socket.current}/>
               <AddList socket={socket.current}/>

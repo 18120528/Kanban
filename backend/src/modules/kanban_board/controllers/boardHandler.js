@@ -65,7 +65,7 @@ const createComment=async (username, commentText, cardId)=>{
         console.log(error)
     }
 }
-const getComments=async (cardId)=>{
+const getComments=async (cardId)=>{//not used anymore
     try {
         const card=await Card.findById(cardId).populate('comments')
         const comments = [...card.comments]
@@ -124,7 +124,10 @@ const populateBoard = async (boardId) => {
         .populate({
           path: 'lists',
           populate: {
-            path: 'cards'
+            path: 'cards',
+            populate: {
+                path: 'comments'
+            }
           }
         });
       //

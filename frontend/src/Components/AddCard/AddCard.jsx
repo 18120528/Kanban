@@ -2,7 +2,7 @@ import { useEffect, useRef,useState } from "react"
 import styles from "./AddCard.module.css"
 //
 const AddCard = ({listId, socket}) => {
-  const [showForm,setShowForm]=useState(false)
+  const [isShowForm,setShowForm]=useState(false)
   const inputRef=useRef(null)
   const addCardRef=useRef(null)
 
@@ -29,7 +29,7 @@ const AddCard = ({listId, socket}) => {
 
   return (
     <div className={styles.add_card} ref={addCardRef}>
-      {showForm ? (
+      {isShowForm ? (
       <form onSubmit={handleSubmit}>
         <textarea type="text" required autoFocus
         name="taskContent" id="taskContent"
