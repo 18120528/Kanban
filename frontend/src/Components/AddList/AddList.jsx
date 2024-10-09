@@ -2,7 +2,7 @@ import { useRef,useState,useEffect } from "react"
 import styles from "./AddList.module.css"
 //
 const AddList = ({socket}) => {
-  const [showForm,setShowForm]=useState(false)
+  const [isShowForm,setShowForm]=useState(false)
   const inputRef=useRef(null)
   const addListRef=useRef(null)
   const handleAddList=(e)=>{
@@ -27,7 +27,7 @@ const AddList = ({socket}) => {
   },[])
   return (
     <div className={styles.addList} ref={addListRef}>
-      {showForm ? (
+      {isShowForm ? (
       <form action="" onSubmit={handleAddList}>
         <input type="text" required autoFocus
           name="listName" id="listName" 

@@ -33,15 +33,15 @@ const socketHandler=(io,newBoardId)=>{
       const boardContent=await boardHandler.populateBoard(newBoardId)
       io.sockets.emit("change",boardContent)
     })
-    socket.on("loadComments",async (data)=>{
+    socket.on("loadComments",async (data)=>{//not used anymore
       const comments=await boardHandler.getComments(data)
       socket.emit("comments",comments)
     })
     socket.on("addComment",async (data)=>{
-      const {comment, cardId}=data
-      await boardHandler.createComment(comment.name, comment.text, cardId)
-      const comments=await boardHandler.getComments(cardId)
-      socket.emit("comments",comments)
+      const {comment, cardID}=data
+      await boardHandler.createComment(comment.name, comment.text, cardID)
+      // const comments=await boardHandler.getComments(cardID)
+      // socket.emit("comments",comments)
     })
     socket.on("disconnect",()=>{
       console.log(`${socket.id} User Disconnected!`)

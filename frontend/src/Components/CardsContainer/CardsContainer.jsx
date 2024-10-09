@@ -1,57 +1,61 @@
 import AddCard from "../AddCard/AddCard"
 import ListMenu from "../ListMenu/ListMenu"
 import {Link} from "react-router-dom"
-import { useEffect,useState } from "react"
-import {DragDropContext,Droppable,Draggable} from "react-beautiful-dnd"
+import { useEffect } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import * as actions from '../../store/boadSlice'
+import {DragDropContext,Droppable,Draggable} from "@hello-pangea/dnd"
 import styles from "./CardsContainer.module.css"
 //
 const url=import.meta.env.VITE_SERVER_API_URL
 const CardsContainer = ({socket}) => {
-  const [lists,setLists]=useState({})
-
-useEffect(()=>{//useEffect only return func, not Promise=> async inside useEffect
-  const fetchCards=async ()=>
-    {
-      try {
-        const response=await fetch(`${url}/api`)//object
-        const data=await response.json()
-        setLists(data)
-      } catch (error) {
-        console.log(error)
+  const dispatch=useDispatch()
+  const board = useSelector((state) => state.board)
+  //
+  const fetchBoard=async ()=>
+  {
+    try {
+      const response=await fetch(`${url}/api`)//object
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.statusText}`);
       }
+      const data=await response.json()
+      dispatch(actions.fetchBoard(data))
+    } catch (error) {
+      console.log(error)
     }
-  fetchCards()
-},[])
-
-useEffect(()=>{
-  document.title="Board | Kanban"
-  socket.on("change", (data)=>{
-    setLists(data)
-  })
-  return ()=>{
-    socket.off("change")
   }
-},[])
+  useEffect(()=>{
+    fetchBoard()
+  },[])
 
-const handleDragEnd=(result)=>{
-  const {source,destination,draggableId}=result
-  
-  if(!destination) return
-  if(source.droppableId===destination.droppableId &&
-      source.index===destination.index
-  ) return
+  useEffect(()=>{
+    document.title="Board | Kanban"
+    socket.on("change", (data)=>{
+      dispatch(actions.fetchBoard(data))
+    })
+    return ()=>{
+      socket.off("change")
+    }
+  },[])
 
-  socket.emit("cardDragged",{source,destination,draggableId})
-}
+  const handleDragEnd=(result)=>{
+    const {source,destination,draggableId}=result
+    if(!destination) return
+    if(source.droppableId===destination.droppableId &&
+        source.index===destination.index
+    ) return
+    socket.emit("cardDragged",{source,destination,draggableId})
+  }
 
-const handleDelCard=(cardId, listId)=>{
-  socket.emit("deleteCard",{cardId, listId})
-}
+  const handleDelCard=(cardId, listId)=>{
+    socket.emit("deleteCard",{cardId, listId})
+  }
 
   return (
     <div className={styles.list_container}>
       <DragDropContext onDragEnd={handleDragEnd}>
-          {Object.entries(lists).map(([key, value])=>{
+          {Object.entries(board).map(([key, value])=>{
             return(
               <Droppable droppableId={key} key={key} >
                 {(provided, snapshot)=>{
