@@ -23,7 +23,7 @@ const LoginForm = () => {
         placeholder="Enter Your Username" ref={usernameRef}/>
         <button type="submit">Submit</button>
         <h1>Simple kanban-style, list-making application</h1>
-        <h3>Since it's a free tier server, please avoid dragging and dropping rapidly</h3>
+        <h3>Cập nhật kiến thức trồng trọt và mua hoa cúc lưới sỉ lẻ tại <a href="https://cucluoidalat.blogspot.com" rel="dofollow">Cúc Lưới Đà Lạt</a></h3>
       </form>
     </div>
   )
